@@ -1,4 +1,4 @@
-class Usuario{
+class Usuario {
   String? nombre;
   int? edad;
   List<String>? profesiones;
