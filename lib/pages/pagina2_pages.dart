@@ -1,10 +1,15 @@
+import 'package:estados/bloc/user_bloc.dart';
+import 'package:estados/models/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Pagina2Page extends StatelessWidget {
   const Pagina2Page({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final userBloc = BlocProvider.of<UserBloc>(context, listen: false);
+
     return Scaffold(
         appBar: AppBar(title: const Text('Pagina2Page')),
         body: Center(
@@ -12,17 +17,34 @@ class Pagina2Page extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MaterialButton(
-                  child: Text('Establecer usuario', style: TextStyle(color: Colors.white),),
                   color: Colors.blue,
-                  onPressed: () {}),
+                  onPressed: () {
+                    final newUser = Usuario(
+                        nombre: 'Brenda Osorio',
+                        edad: 31,
+                        profesiones: ['Algo']);
+                    userBloc.add(ActivateUser(newUser));
+                  },
+                  child: const Text(
+                    'Establecer usuario',
+                    style: TextStyle(color: Colors.white),
+                  )),
               MaterialButton(
-                  child: Text('Cambiar Edad', style: TextStyle(color: Colors.white),),
                   color: Colors.blue,
-                  onPressed: () {}),
+                  onPressed: () {
+                    userBloc.add(ChangeUserAge(35));
+                  },
+                  child: const Text(
+                    'Cambiar Edad',
+                    style: TextStyle(color: Colors.white),
+                  )),
               MaterialButton(
-                  child: Text('Añadir Profesion', style: TextStyle(color: Colors.white),),
                   color: Colors.blue,
-                  onPressed: () {}),
+                  onPressed: () {userBloc.add(AddProfession('algo mas'));},
+                  child: const Text(
+                    'Añadir Profesion',
+                    style: TextStyle(color: Colors.white),
+                  )),
             ],
           ),
         ));
